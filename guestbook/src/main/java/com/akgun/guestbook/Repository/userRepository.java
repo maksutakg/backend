@@ -1,4 +1,4 @@
-package com.akgun.guestbook.Repository;
+package com.akgun.guestbook.Entity.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
