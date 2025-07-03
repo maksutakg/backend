@@ -35,4 +35,9 @@ public User findById (long id){
     return userRepository.findById(id).orElse(null);
 }
 
+public String getNoteById (long id) {
+   User user = userRepository.findById(id).orElse(null);
+     return user.getNote();
+
+}
 }

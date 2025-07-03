@@ -32,6 +32,8 @@ public class UserController {
 
     }
 
+    
+
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserByID(@PathVariable Long id){
         User user= userService.findById(id);
@@ -53,10 +55,24 @@ public class UserController {
 
    
     @DeleteMapping("/{id}")
-
     public void deleteUserById(@PathVariable Long id){
 
         userService.deleteUserById(id);
+
+    }
+
+    @GetMapping("/note/{id}")
+    public ResponseEntity<String> getNotById (@PathVariable Long id){
+
+        if (userService.findById(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
+        else {
+            String note = userService.getNoteById(id);
+            return ResponseEntity.ok(note);
+        }
+       
+
 
     }
 
