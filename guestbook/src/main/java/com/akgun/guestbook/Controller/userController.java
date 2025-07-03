@@ -32,17 +32,10 @@ public class UserController {
 
     }
 
-    
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserByID(@PathVariable Long id){
-        User user= userService.findById(id);
-        if(user==null){
-            return ResponseEntity.notFound().build();
-        }
-        else{
-            return ResponseEntity.ok(user);
-        }
+    public User getUserByID (@PathVariable Long id){
+        return userService.findById(id);
     }
 
     @PostMapping
@@ -62,17 +55,11 @@ public class UserController {
     }
 
     @GetMapping("/note/{id}")
-    public ResponseEntity<String> getNotById (@PathVariable Long id){
+    public String getNotById (@PathVariable Long id){
 
-        if (userService.findById(id) == null) {
-            return ResponseEntity.notFound().build();
-        }
-        else {
-            String note = userService.getNoteById(id);
-            return ResponseEntity.ok(note);
-        }
        
-
+        return userService.getNoteById(id);
+       
 
     }
 
