@@ -38,7 +38,8 @@ public User findById (long id){
 }
 
 public String getNoteById (long id) {
-   User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+   User user = userRepository.findById(id)
+            .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
      return user.getNote();
     
 }
