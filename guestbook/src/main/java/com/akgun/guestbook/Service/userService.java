@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.akgun.guestbook.Entity.User;
+import com.akgun.guestbook.Exception.NotFoundException;
 import com.akgun.guestbook.Repository.UserRepository;
 
 @Service
@@ -32,12 +33,15 @@ public void deleteUserById(Long id){
 }
 
 public User findById (long id){
-    return userRepository.findById(id).orElse(null);
+    return userRepository.findById(id)
+            .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
 }
 
 public String getNoteById (long id) {
-   User user = userRepository.findById(id).orElse(null);
+   User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found with id: " + id));
      return user.getNote();
-
+    
 }
+
+
 }
