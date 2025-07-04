@@ -19,7 +19,7 @@ private UserRepository userRepository;
 public List<UserResponseDto> findAll(){
 
     return userRepository.findAll().stream().map(user->
-        new UserResponseDto(user.getId(), user.getUsername(), user.getNote()))
+        new UserResponseDto(user.getId(), user.getUsername(),user.getSurname(),user.getNote()))
         .toList();
 }
 
@@ -44,7 +44,7 @@ public User findByIdM (long id){
 public UserResponseDto findById (long id){
   
     return userRepository.findById(id)
-        .map(user -> new UserResponseDto(user.getId(), user.getUsername(), user.getNote()))
+        .map(user -> new UserResponseDto(user.getId(), user.getUsername(), user.getNote(),user.getSurname()))
         .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
 
         
