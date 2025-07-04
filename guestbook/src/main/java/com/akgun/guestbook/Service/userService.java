@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.akgun.guestbook.Entity.User;
+import com.akgun.guestbook.Entity.dto.UserResponseDto;
 import com.akgun.guestbook.Exception.NotFoundException;
 import com.akgun.guestbook.Repository.UserRepository;
 
@@ -15,9 +16,11 @@ public class UserService {
     @Autowired
 private UserRepository userRepository;
 
-public List<User> findAll(){
+public List<UserResponseDto> findAll(){
 
-    return userRepository.findAll();
+    return userRepository.findAll().stream().map(user->
+        new UserResponseDto(user.getId(), user.getUsername(),user.getSurname(),user.getNote()))
+        .toList();
 }
 
 public User save(User user){
@@ -31,10 +34,20 @@ public void deleteUserById(Long id){
     userRepository.deleteById(id);
 
 }
+public User findByIdM (long id){
+  
+    return userRepository.findById(id) .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
 
-public User findById (long id){
+        
+}
+
+public UserResponseDto findById (long id){
+  
     return userRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+        .map(user -> new UserResponseDto(user.getId(), user.getUsername(), user.getNote(),user.getSurname()))
+        .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+
+        
 }
 
 public String getNoteById (long id) {
