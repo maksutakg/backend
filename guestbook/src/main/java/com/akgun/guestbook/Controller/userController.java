@@ -64,12 +64,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public User updateUser (@PathVariable Long id,@RequestBody User user){
-        User existingUser= userService.findByIdM(id);
-        existingUser.setMail(user.getMail());
-        existingUser.setUsername(user.getUsername());
-        existingUser.setSurname(user.getSurname());
-        existingUser.setNote(user.getNote());
-        return userService.save(existingUser);
+        userService.UserpdateUser(id, user);
+        return user;
 
     }
 

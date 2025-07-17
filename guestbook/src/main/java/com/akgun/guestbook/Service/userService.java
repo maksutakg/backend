@@ -2,8 +2,10 @@ package com.akgun.guestbook.Service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.akgun.guestbook.Entity.User;
 import com.akgun.guestbook.Entity.dto.UserResponseDto;
@@ -55,6 +57,17 @@ public String getNoteById (long id) {
             .orElseThrow(() -> new NotFoundException("User not found with id: " + id));
      return user.getNote();
     
+}
+public User UserpdateUser (long id,User user){
+
+   User existingUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found with id: " + id));
+   existingUser.setMail(user.getMail());
+   existingUser.setUsername(user.getUsername());
+   existingUser.setSurname(user.getSurname());
+   existingUser.setNote(user.getNote());
+   return userRepository.save(user);
+
+
 }
 
 
